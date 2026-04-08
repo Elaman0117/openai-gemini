@@ -55,8 +55,14 @@ which is necessary for continuous integration (CI).
 
 ### Deploy to Cloudflare
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/PublicAffairs/openai-gemini)
-- Alternatively can be deployed manually pasting content of [`src/worker.mjs`](src/worker.mjs)
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/Elaman0117/openai-gemini)
+- Cloudflare deployment uses [`src/worker-openrouter.mjs`](src/worker-openrouter.mjs), which proxies OpenAI-compatible `chat/completions` requests to OpenRouter.
+- The worker always forces:
+  - `temperature: 0`
+  - `reasoning_effort: "high"`
+- Set `OPENROUTER_API_KEY` as a Worker secret (or send `Authorization: Bearer ...` in the incoming request).
+- Optionally set `OPENROUTER_HTTP_REFERER` and `OPENROUTER_X_TITLE`.
+- Alternatively can be deployed manually pasting content of [`src/worker-openrouter.mjs`](src/worker-openrouter.mjs)
   to https://workers.cloudflare.com/playground (see there `Deploy` button).
 - Alternatively can be deployed with [cli](https://developers.cloudflare.com/workers/wrangler/):
   `wrangler deploy`
