@@ -1,3 +1,6 @@
+const FORCED_TEMPERATURE = 0;
+const FORCED_REASONING_EFFORT = "high";
+
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
@@ -17,8 +20,8 @@ export default {
       }
 
       const req = await request.json();
-      req.temperature = 0;
-      req.reasoning_effort = "high";
+      req.temperature = FORCED_TEMPERATURE;
+      req.reasoning_effort = FORCED_REASONING_EFFORT;
 
       const headers = new Headers(request.headers);
       headers.set("Content-Type", "application/json");
@@ -52,11 +55,11 @@ export default {
 };
 
 const fixCors = ({ headers, status, statusText }) => {
-  headers = new Headers(headers);
-  headers.set("Access-Control-Allow-Origin", "*");
-  headers.set("Access-Control-Allow-Methods", "*");
-  headers.set("Access-Control-Allow-Headers", "*");
-  return { headers, status, statusText };
+  const responseHeaders = new Headers(headers);
+  responseHeaders.set("Access-Control-Allow-Origin", "*");
+  responseHeaders.set("Access-Control-Allow-Methods", "*");
+  responseHeaders.set("Access-Control-Allow-Headers", "*");
+  return { headers: responseHeaders, status, statusText };
 };
 
 const handleOptions = () => {
