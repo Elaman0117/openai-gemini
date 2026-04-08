@@ -60,7 +60,7 @@ which is necessary for continuous integration (CI).
 - The worker always forces:
   - `temperature: 0`
   - `reasoning_effort: "high"`
-- Set `OPENROUTER_API_KEY` as a Worker secret (or send `Authorization: Bearer ...` in the incoming request).
+- Set `OPENROUTER_API_KEY` as a Worker secret (required).
 - Optionally set `OPENROUTER_HTTP_REFERER` and `OPENROUTER_X_TITLE`.
 - Alternatively can be deployed manually pasting content of [`src/worker-openrouter.mjs`](src/worker-openrouter.mjs)
   to https://workers.cloudflare.com/playground (see there `Deploy` button).

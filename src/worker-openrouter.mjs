@@ -25,12 +25,10 @@ export default {
       headers.delete("Content-Length");
       headers.delete("Host");
 
-      if (!headers.get("Authorization")) {
-        if (!env.OPENROUTER_API_KEY) {
-          return new Response("Missing Authorization header or OPENROUTER_API_KEY", fixCors({ status: 401 }));
-        }
-        headers.set("Authorization", `Bearer ${env.OPENROUTER_API_KEY}`);
+      if (!env.OPENROUTER_API_KEY) {
+        return new Response("Missing OPENROUTER_API_KEY", fixCors({ status: 500 }));
       }
+      headers.set("Authorization", `Bearer ${env.OPENROUTER_API_KEY}`);
 
       if (env.OPENROUTER_HTTP_REFERER && !headers.get("HTTP-Referer")) {
         headers.set("HTTP-Referer", env.OPENROUTER_HTTP_REFERER);
