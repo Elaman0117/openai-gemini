@@ -61,7 +61,7 @@ const fixCors = ({ headers, status, statusText }) => {
   return { headers, status, statusText };
 };
 
-const handleOPTIONS = async () => {
+const handleOPTIONS = () => {
   return new Response(null, {
     headers: {
       "Access-Control-Allow-Origin": "*",
