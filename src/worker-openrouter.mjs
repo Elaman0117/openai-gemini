@@ -1,7 +1,7 @@
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
-      return handleOPTIONS();
+      return handleOptions();
     }
 
     try {
@@ -12,7 +12,7 @@ export default {
       if (request.method !== "POST") {
         return new Response(
           "The specified HTTP method is not allowed for the requested resource",
-          fixCors({ status: 400 }),
+          fixCors({ status: 405 }),
         );
       }
 
@@ -59,7 +59,7 @@ const fixCors = ({ headers, status, statusText }) => {
   return { headers, status, statusText };
 };
 
-const handleOPTIONS = () => {
+const handleOptions = () => {
   return new Response(null, {
     headers: {
       "Access-Control-Allow-Origin": "*",
